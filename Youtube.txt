@@ -1,0 +1,107 @@
+Screen cast o matic, screen toaster
+obs studio
+
+How to add a column with an ordered, monotonically increasing by 1 sequence
+from pyspark.sql.functions import row_number, monotonically_increasing_id
+# the window is necessary here because row_number is a windowing function
+# that means you can have row_number run over some amount of your data
+from pyspark.sql import Window
+
+df = df.withColumn(
+    "index",
+    row_number().over(Window.orderBy(monotonically_increasing_id()))-1
+)
+---------------------------------------------------------------------------------------------------------------
+How to check if spark Dataframe contains particular column or not?
+df.columns.contains("column-name-to-check")
+How to check if list of colu,mns is present in Dataframe or not?
+List("a", "b", "c").forall(finalDF.columns.contains)
+
+or
+
+List("a", "b", "c").diff(finalDF.columns).isEmpty
+-------------------------------------------------------------------------------------------
+How to select rows which meet particular condition?
+>>> df.filter(df.age > 3).collect()
+[Row(age=5, name=u'Bob')]
+>>> df.where(df.age == 2).collect()
+[Row(age=2, name=u'Alice')]
+---------------------------------------------------------------------------------------------------------------
+How to check if particular value is present in a particular column or not?If yes then display those rows?
+The isin method returns true if the column is contained in a list of arguments and false otherwise
+
+val primaryColors = List("red", "yellow", "blue")
+sourceDF.withColumn(
+  "is_primary_color",
+  col("color").isin(primaryColors: _*)
+).show()
+
+>>> df.filter(df.age > 3).collect()
+[Row(age=5, name=u'Bob')]
+>>> df.where(df.age == 2).collect()
+[Row(age=2, name=u'Alice')]
+
+How to use  isNull, isNotNull, isin in Spark Dataframe?
+Is Null method
+The isNull method returns true if the column contains a Null value and returns False otherwise
+sourceDF.withColumn(
+  "is_person_name_null",
+  col("person_name").isNull
+).show()
+
+>>> df.filter(df.age > 3).collect()
+[Row(age=5, name=u'Bob')]
+>>> df.where(df.age == 2).collect()
+[Row(age=2, name=u'Alice')]
+
+>>> df.filter("age > 3").collect()
+[Row(age=5, name=u'Bob')]
+>>> df.where("age = 2").collect()
+[Row(age=2, name=u'Alice')]
+
+
+Is Not Null
+
+sourceDF.withColumn(
+  "is_person_name_not_null",
+  col("person_name").isNotNull
+).show()
+
+>>> df.filter(df.age > 3).collect()
+[Row(age=5, name=u'Bob')]
+>>> df.where(df.age == 2).collect()
+[Row(age=2, name=u'Alice')]
+
+>>> df.filter("age > 3").collect()
+[Row(age=5, name=u'Bob')]
+>>> df.where("age = 2").collect()
+[Row(age=2, name=u'Alice')]
+
+
+>>> df.filter("age > 3").collect()
+[Row(age=5, name=u'Bob')]
+>>> df.where("age = 2").collect()
+[Row(age=2, name=u'Alice')]
+
+How to get particular row in Spark>
+val myRow7th = parquetFileDF.rdd.take(7).last
+-----------------------------------------------------------------------------
+How to use value counts in Spark?
+Or How to count frequency of each value present in a column?
+
+Seq(1, 2, 2, 2, 3, 3, 4).toDF("value")
+  .groupBy($"value").count.orderBy($"count".desc)
+
+df.groupBy($"value").count.orderBy($"count".desc)
+------------------------------------------------------------------------------------------
+How to apply user defned function?
+val toUpper: String => String = _.toUpperCase
+
+import org.apache.spark.sql.functions.udf
+val upper = udf(toUpper)
+
+scala> df.withColumn("upper", upper('text)).show
+---------------------------------------------------------------------------------------------
+How to use map and foreach?
+df.select("start").map(el->el.getString(0)+"asd")//But you will get an RDD as return value not a DF
+df.select("start").forEach(el->el.getString(0)+"asd")
