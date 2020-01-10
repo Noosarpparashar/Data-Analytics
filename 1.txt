@@ -1,0 +1,178 @@
+1a).How to take limited number of  inputs separated ny space?
+2 3
+3 4
+a,b=input().split()
+print(int(a)+1,int(b)+1)
+
+1b)What if they are separated by comma?
+a,b=input().split(",")
+print(int(a)+1,int(b)+1)
+
+1c)How to take input using map?
+map(function,iter)
+a,b,c=map(int,input().split())
+
+d)What if input is like
+1 2 3 4 57 9 6 78 5 6 5 45 6 89 78 78 45 45
+By this you can take any number of inputs in python
+a=[int(i) for i in input().split(' ')]
+Now imagine there is  some space after 45
+a=[int(i) for i in input().strip().split(' ')]
+print(a)
+
+2.How to print without newline in Python
+--a=[1,2,3,4,5]
+Icrement each number by 1 and print in single line
+for i in a:
+    print(i,end="")
+
+Print using format
+print("My first name is {0} and my title is {1}".format("Prasoon","Parashar"))
+
+Formatting numbers
+print("My first value : % 0d, My second value : % 0.2f" %(11000, 05.333))
+print("My first value : % 0d, My second value : % 0.6f" %(11000, 888888885.333))
+print("My first value : % 0d, My second value : % 0.6f" %(11000, 888888885.333))
+
+3.Convert list of strings to list of tuples and convert it to integer
+b=['8, 9', '6, 12', '26, 89','36,45']
+a=[map(int, i.split(',')) for i in b]
+print(a)
+4.Convert dictionary to list of tuples
+b = { 'An': 10, 'apple': 9, 'a': 11, 'day': 45, 'keeps': 35, 'a': 45, 'doctor': 45, 'aways': 12} 
+print(b)
+What yous see z dat dictionary doesn't allow any duplicate values
+a=[(i,j) for i,j in b.items()]
+print(a)
+
+
+4.Find maximum occuring characters in string and show them in dictionary
+a=input()
+c={}
+for i in a:
+    if i in c:
+        c[i]=c[i]+1
+    else:
+        c[i]=1
+d={}
+maxx=max(c.values())
+for i,j in c.items():
+    if j==maxx:
+        d[i]=j
+
+print(d)        
+    
+---same question using counter
+from collections import Counter
+c=input()
+b=Counter(c)
+d={}
+maxx=max(b.values())
+for i in b:
+    if maxx==b[i]:
+        d[i]=maxx
+print(d)
+        
+5.How to remove duplicates in python
+a=input()
+b=[]
+for i in a:
+    if i not in b:
+        b.append(i)
+    
+print("".join(b))
+6.Find duplicate values of both string
+a=input()
+b=input()
+c=[]
+for i in a:
+    if i in a and i in b:
+        c.append(i)
+#Set remove all duplicate values        
+print(set(c))
+
+--------------Can't use append in this approach..Rather use add..Point to be noted is that you cannot use append withs set
+a=input()
+b=input()
+c=set()
+for i in a:
+    if i in a and i in b:
+        c.add(i)
+        
+print(c)
+7.How to print all permutation of a String?
+
+import itertools
+a="sdasd"
+b=list(itertools.permutations(a))
+print(b)
+#Now print it by joining
+for i in b:
+    #print(i)
+    print("".join(i))
+8.Iterate over list by jumping backward and forward
+a=[1,2,3,4,5,8,9,4,4,56]
+print(a[0:len(a):2])
+print(a[-1:0:-2])
+9. Check if the string is palindrome or not?
+a=input()
+b=a[::-1]
+print(b)
+if a==b:
+    print("Yes")
+else:
+    print("No")
+
+a=input()
+b=list(reversed(a))
+print("".join(b))
+if a==b:
+    print("Yes")
+else:
+    print("No")
+--------------------------
+10Replace and remove in string
+a="dfggdfgs"
+b=a.replace("d","z")
+print(b)
+
+11 Sort list in Python
+a=[1,2,3,4,5,8,9,4,4,56]
+a.sort()
+print(a)
+a=[12,45,1,234,556,45,4587,45,]
+b=sorted(a)
+print(b)
+General Knowledge
+a=[1,2,3,4]
+b=a
+a.append(3)
+print(a)
+print(b)
+
+12Flat the list
+a=[[1,2,3,4],[5,6,4,7],[8,9,8,7]]
+b=[]
+for i in a:
+    b.extend(i)
+print(b)
+11.
+2.Find LCM of any numbers in python
+a=[int(i) for i in input().strip().split()]
+b=max(a)
+c=1
+flag=0
+while(True):
+    for i in a:
+        if (b*c)%i!=0:
+            c=c+1
+            flag=0
+            
+            
+            break
+        else:
+            flag=1
+            
+    if flag==1:
+        print(b*c)
+        break
