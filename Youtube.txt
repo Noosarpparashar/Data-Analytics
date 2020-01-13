@@ -1,107 +1,365 @@
-Screen cast o matic, screen toaster
-obs studio
+1a).How to take limited number of  inputs separated ny space?
+2 3
+3 4
+a,b=input().split()
+print(int(a)+1,int(b)+1)
 
-How to add a column with an ordered, monotonically increasing by 1 sequence
-from pyspark.sql.functions import row_number, monotonically_increasing_id
-# the window is necessary here because row_number is a windowing function
-# that means you can have row_number run over some amount of your data
-from pyspark.sql import Window
+1b)What if they are separated by comma?
+a,b=input().split(",")
+print(int(a)+1,int(b)+1)
 
-df = df.withColumn(
-    "index",
-    row_number().over(Window.orderBy(monotonically_increasing_id()))-1
-)
----------------------------------------------------------------------------------------------------------------
-How to check if spark Dataframe contains particular column or not?
-df.columns.contains("column-name-to-check")
-How to check if list of colu,mns is present in Dataframe or not?
-List("a", "b", "c").forall(finalDF.columns.contains)
+1c)How to take input using map?
+map(function,iter)
+a,b,c=map(int,input().split())
 
-or
-
-List("a", "b", "c").diff(finalDF.columns).isEmpty
--------------------------------------------------------------------------------------------
-How to select rows which meet particular condition?
->>> df.filter(df.age > 3).collect()
-[Row(age=5, name=u'Bob')]
->>> df.where(df.age == 2).collect()
-[Row(age=2, name=u'Alice')]
----------------------------------------------------------------------------------------------------------------
-How to check if particular value is present in a particular column or not?If yes then display those rows?
-The isin method returns true if the column is contained in a list of arguments and false otherwise
-
-val primaryColors = List("red", "yellow", "blue")
-sourceDF.withColumn(
-  "is_primary_color",
-  col("color").isin(primaryColors: _*)
-).show()
-
->>> df.filter(df.age > 3).collect()
-[Row(age=5, name=u'Bob')]
->>> df.where(df.age == 2).collect()
-[Row(age=2, name=u'Alice')]
-
-How to use  isNull, isNotNull, isin in Spark Dataframe?
-Is Null method
-The isNull method returns true if the column contains a Null value and returns False otherwise
-sourceDF.withColumn(
-  "is_person_name_null",
-  col("person_name").isNull
-).show()
-
->>> df.filter(df.age > 3).collect()
-[Row(age=5, name=u'Bob')]
->>> df.where(df.age == 2).collect()
-[Row(age=2, name=u'Alice')]
-
->>> df.filter("age > 3").collect()
-[Row(age=5, name=u'Bob')]
->>> df.where("age = 2").collect()
-[Row(age=2, name=u'Alice')]
+Explain strip split
+a="      dbfjshfws"
+print(a.strip())
+print(a.strip().split('f'))
 
 
-Is Not Null
+d)What if input is like
+1 2 3 4 57 9 6 78 5 6 5 45 6 89 78 78 45 45
+By this you can take any number of inputs in python
+a=[int(i) for i in input().split(' ')]
+Now imagine there is  some space after 45
+a=[int(i) for i in input().strip().split(' ')]
+print(a)
 
-sourceDF.withColumn(
-  "is_person_name_not_null",
-  col("person_name").isNotNull
-).show()
+2.How to print without newline in Python
+--a=[1,2,3,4,5]
+Icrement each number by 1 and print in single line
+for i in a:
+    print(i,end="")
 
->>> df.filter(df.age > 3).collect()
-[Row(age=5, name=u'Bob')]
->>> df.where(df.age == 2).collect()
-[Row(age=2, name=u'Alice')]
+Print using format
+print("My first name is {0} and my title is {1}".format("Prasoon","Parashar"))
 
->>> df.filter("age > 3").collect()
-[Row(age=5, name=u'Bob')]
->>> df.where("age = 2").collect()
-[Row(age=2, name=u'Alice')]
+Formatting numbers
+print("My first value : % 0d, My second value : % 0.2f" %(11000, 05.333))
+print("My first value : % 0d, My second value : % 0.6f" %(11000, 888888885.333))
+print("My first value : % 0d, My second value : % 0.6f" %(11000, 888888885.333))
+
+3.Convert list of strings to list of tuples and convert it to integer
+b=['8, 9', '6, 12', '26, 89','36,45']
+a=[map(int, i.split(',')) for i in b]
+print(a)
+4.Convert dictionary to list of tuples
+b = { 'An': 10, 'apple': 9, 'a': 11, 'day': 45, 'keeps': 35, 'a': 45, 'doctor': 45, 'aways': 12} 
+print(b)
+What yous see z dat dictionary doesn't allow any duplicate values
+a=[(i,j) for i,j in b.items()]
+print(a)
 
 
->>> df.filter("age > 3").collect()
-[Row(age=5, name=u'Bob')]
->>> df.where("age = 2").collect()
-[Row(age=2, name=u'Alice')]
+4.Find maximum occuring characters in string and show them in dictionary
+a=input()
+c={}
+for i in a:
+    if i in c:
+        c[i]=c[i]+1
+    else:
+        c[i]=1
+d={}
+maxx=max(c.values())
+for i,j in c.items():
+    if j==maxx:
+        d[i]=j
 
-How to get particular row in Spark>
-val myRow7th = parquetFileDF.rdd.take(7).last
------------------------------------------------------------------------------
-How to use value counts in Spark?
-Or How to count frequency of each value present in a column?
+print(d)        
+    
+---same question using counter
+from collections import Counter
+c=input()
+b=Counter(c)
+d={}
+maxx=max(b.values())
+for i in b:
+    if maxx==b[i]:
+        d[i]=maxx
+print(d)
+        
+5.How to remove duplicates in python
+a=input()
+b=[]
+for i in a:
+    if i not in b:
+        b.append(i)
+    
+print("".join(b))
+6.Find duplicate values of both string
+a=input()
+b=input()
+c=[]
+for i in a:
+    if i in a and i in b:
+        c.append(i)
+#Set remove all duplicate values        
+print(set(c))
 
-Seq(1, 2, 2, 2, 3, 3, 4).toDF("value")
-  .groupBy($"value").count.orderBy($"count".desc)
+--------------Can't use append in this approach..Rather use add..Point to be noted is that you cannot use append withs set
+a=input()
+b=input()
+c=set()
+for i in a:
+    if i in a and i in b:
+        c.add(i)
+        
+print(c)
+7.How to print all permutation of a String?
 
-df.groupBy($"value").count.orderBy($"count".desc)
-------------------------------------------------------------------------------------------
-How to apply user defned function?
-val toUpper: String => String = _.toUpperCase
+import itertools
+a="sdasd"
+b=list(itertools.permutations(a))
+print(b)
+#Now print it by joining
+for i in b:
+    #print(i)
+    print("".join(i))
+8.Iterate over list by jumping backward and forward
+a=[1,2,3,4,5,8,9,4,4,56]
+print(a[0:len(a):2])
+print(a[-1:0:-2])
+9. Check if the string is palindrome or not?
+a=input()
+b=a[::-1]
+print(b)
+if a==b:
+    print("Yes")
+else:
+    print("No")
 
-import org.apache.spark.sql.functions.udf
-val upper = udf(toUpper)
+a=input()
+b=list(reversed(a))
+print("".join(b))
+if a==b:
+    print("Yes")
+else:
+    print("No")
+--------------------------
+10Replace and remove in string
+a="dfggdfgs"
+b=a.replace("d","z")
+print(b)
 
-scala> df.withColumn("upper", upper('text)).show
----------------------------------------------------------------------------------------------
-How to use map and foreach?
-df.select("start").map(el->el.getString(0)+"asd")//But you will get an RDD as return value not a DF
-df.select("start").forEach(el->el.getString(0)+"asd")
+11 Sort list in Python
+a=[1,2,3,4,5,8,9,4,4,56]
+a.sort()
+print(a)
+a=[12,45,1,234,556,45,4587,45,]
+b=sorted(a)
+print(b)
+General Knowledge
+a=[1,2,3,4]
+b=a
+a.append(3)
+print(a)
+print(b)
+
+12Flat the list
+a=[[1,2,3,4],[5,6,4,7],[8,9,8,7]]
+b=[]
+for i in a:
+    b.extend(i)
+print(b)
+13
+Use extend,How to take input..
+Find nth element of two sorted arrays
+Given two sorted arrays A and B of size M and N respectively and an element k. The task is to find the element that would be at the k’th position of the final sorted array.
+5 4 5
+2 3 6 7 9
+1 4 8 10
+t=int(input())
+for i in range(t):
+    n,m,k=input().split()
+    n,m,k=int(n),int(m),int(k)
+    arr1=[int(i) for i in input().strip().split()]
+    arr2=[int(j) for j in input().strip().split()]
+    arr1.extend(arr2)
+   
+    arr1.sort()
+   
+    print(arr1[k-1])
+14
+Given an array of words, print the count of all anagrams together in sorted order (increasing order of counts).
+For example, if the given array is {“cat”, “dog”, “tac”, “god”, “act”}, then grouped anagrams are “(dog, god) (cat, tac, act)”. So the output will be 2 3.
+2
+5
+act cat tac god dog
+3
+act cat tac
+from collections import Counter
+t=int(input())
+for i in range(t):
+    n=int(input())
+    a=["".join(sorted(i)) for i in input().strip().split()]
+    b=  Counter(a)
+    c=sorted(b.values())
+    print(*c)
+
+15  
+Given an array of N integers. The task is to find the first element that occurs K number of times. If no element occurs K times the print -1. 
+1
+7 2
+1 7 4 3 4 8 7
+Output :
+7
+from collections import Counter
+t=int(input())
+for i in range(t):
+    a,b=input().split()
+    c=[int(j) for j in input().strip().split()]
+    d=Counter(c)
+    if int(b) not in d.values():
+        print(-1)
+    else:
+        for k in c:
+            if d[k]==int(b):
+                print(k)
+                break  
+16.
+How to use reduce 
+https://practice.geeksforgeeks.org/problems/product-array-puzzle/0
+Given an array A of size N, construct a Product Array P (of same size) such that P is equal to the product of all the elements of A except A[i].
+from functools import reduce
+t=int(input())
+for i in range(t):
+    c=int(input())
+    d=[int(x) for x in input().strip().split()]
+    overall_mul=reduce((lambda x,y:x*y),d)
+    b=[str(int(overall_mul/i)) for i in d]
+    print(" ".join(b))
+17
+Find the elements that appear once in sorted array
+2 2 3 3 4 5 5 9 9 10 10
+t=int(input())
+for i in range(t):
+    nos=int(input())
+    a=[int(j) for j in input().strip().split()]
+    b=set(a)
+    print(sum(b)*2-sum(a))
+
+18
+Use ZIP FUNCTION
+x = [1,2,3,4]
+y = [7,8,3,2]
+z = ['a','b','c','d']
+
+#[print(x,y,z) for x,y,z in zip(x,y,z)]
+
+for a,b,c in zip(x,y,z):
+    print(a,b,c)
+
+print(a)
+19 Use ENUMERATE FUNCTION
+a=[1,2,3,2]
+for i,j in enumerate(a):
+    print(i,j)
+
+20.Find LCM of any numbers in python
+a=[int(i) for i in input().strip().split()]
+b=max(a)
+c=1
+flag=0
+while(True):
+    for i in a:
+        if (b*c)%i!=0:
+            c=c+1
+            flag=0
+            
+            
+            break
+        else:
+            flag=1
+            
+    if flag==1:
+        print(b*c)
+        break
+21
+Find prime number
+while(True):
+    a=int(input("Enter a number greater than 1"))
+    flag=0
+    for i in range(2,(a//2)+1):
+        if a%i==0:
+           flag=2
+           print(a%i,a,i)
+        
+           break
+        else:
+            flag=1
+        
+            continue
+    if flag==2:
+        print("Not Prime")
+    else :
+        print(" Prime")
+22 Deque
+from collections import deque
+from collections import Counter
+a=[1,2]
+b=deque(a)
+b.appendleft(5)
+b.appendleft
+b.appendleft(7)
+b.append(8)
+b.appendleft(9)
+b.append(10)
+b.append(11)
+b.append(12)
+b.append(13)
+b.append(14)
+print(b)
+print(b.pop())
+b.popleft()
+print(b)
+print(b.count(7))
+b.remove(11)
+print(Counter(b))
+d=[7,8,9,12,14]
+b.extend(d)
+print(b)
+e=[7,8,9,12,14]
+b.extendleft(e)
+print(b)
+b.extendleft(e[::-1])
+print(b)
+b.rotate(3)
+print(b)
+b.rotate(-3)
+print(b)
+b.insert(1,89)
+print(b)
+print(list(reversed(b)))
+print(b[-1])
+print(len(b))
+print(b)
+del(b[1])
+print(b)
+
+
+23How to create a  Class
+class Mobile:
+    pass
+mob=Mobile()
+print(mob)
+
+class Mobile:
+	name="Nokia"
+Instantiate class
+mob=Mobile()
+print(mob.name)
+
+Method
+class Mobile:
+    
+    name="Nokia"
+    
+    
+    def function(self,a):
+        print("Now you are inside the function")
+        print("You have passed {} as parameter".format(a))
+        print(a+1)
+mob=Mobile()
+print(mob.name)
+print(mob.function(4))
