@@ -1,0 +1,7 @@
+https://github.com/greulist137/Udacity---Big-Data---Apache-Spark/blob/master/IBM-Cloud_Workspace.ipynb
+https://github.com/klrpdx/sparkify/blob/master/Sparkify-Local.ipynb
+https://github.com/bondxue/Data-Lake-with-Spark
+https://github.com/fxzero/Sparkify-Project/blob/master/Sprakify%20.ipynb
+https://github.com/fxzero/SF-Crime-Statistics-with-Spark-Streaming/blob/master/data_stream.py
+https://github.com/mckinziebrandon/DeepChatModels/blob/master/notebooks/Analysis.ipynb
+https://github.com/onurakpolat/awesome-bigdata
